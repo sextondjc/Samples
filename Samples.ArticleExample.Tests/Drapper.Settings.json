@@ -1,0 +1,24 @@
+{
+  "Namespaces": [
+    {
+      "Namespace": "Samples.ArticleExample",
+      "ConnectionString": {
+        "ProviderName": "System.Data.SqlClient",
+        "ConnectionString": "Data Source=(LocalDb)\\mssqllocaldb;Initial Catalog=master;Integrated Security=true"
+      },
+      "Types": [
+        {
+          "Name": "Samples.ArticleExample.ArticleRepository",
+          "Commands": {
+            "RetrieveAll": {
+              "CommandText": "declare @Author table([AuthorId]int identity(1,1),[Name]varchar(255));declare @Article table([Id]int identity(1,1),[AuthorId]int,[Title]varchar(255),[Text]varchar(max));INSERT INTO @Author([Name])select'John Smit'UNION ALL select'Victor Matfield'UNION ALL select'Brian Habana'INSERT INTO @Article([AuthorId],[Title],[Text])select 1,'Captain To Win','How we won RWC 2007 and some other stuff'UNION ALL select 2,'Growing Old Disgracefully','My life as a rugby legend'UNION ALL select 3,'Speed!','Racing cheetahs and aircraft - yes, it''s as fun as it sounds!'select article.[Id],article.[Text],article.[AuthorId],author.Name from @Article article JOIN @Author author on author.AuthorId=article.AuthorId;",
+              "CommandType": 1,
+              "Flags": 5,
+              "Split": "AuthorId"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
